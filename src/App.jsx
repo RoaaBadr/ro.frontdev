@@ -1,11 +1,77 @@
 import './App.css'
 import Hero from './components/Hero'
 import Nav from './components/Nav'
+import { useEffect, useRef } from "react";
 
 function App() {
+  // Cursor Effect
+  const cursorRef = useRef(null);
+  const ringRef = useRef(null);
+
+  useEffect(() => {
+    let mx = 0,
+      my = 0,
+      rx = 0,
+      ry = 0;
+
+    const cursor = cursorRef.current;
+    const ring = ringRef.current;
+
+    const handleMouseMove = (e) => {
+      mx = e.clientX;
+      my = e.clientY;
+
+      cursor.style.left = mx + "px";
+      cursor.style.top = my + "px";
+    };
+
+    const animateRing = () => {
+      rx += (mx - rx) * 0.14;
+      ry += (my - ry) * 0.14;
+
+      ring.style.left = rx + "px";
+      ring.style.top = ry + "px";
+
+      requestAnimationFrame(animateRing);
+    };
+
+    document.addEventListener("mousemove", handleMouseMove);
+    animateRing();
+
+    // Hover effects
+    const elements = document.querySelectorAll(
+      "a, button, .work-card, .tech-card"
+    );
+
+    elements.forEach((el) => {
+      el.addEventListener("mouseenter", () => {
+        ring.style.width = "56px";
+        ring.style.height = "56px";
+        ring.style.borderColor = "var(--amber)";
+        cursor.style.transform = "translate(-50%, -50%) scale(0.5)";
+      });
+
+      el.addEventListener("mouseleave", () => {
+        ring.style.width = "36px";
+        ring.style.height = "36px";
+        ring.style.borderColor = "var(--amber)";
+        cursor.style.transform = "translate(-50%, -50%) scale(1)";
+      });
+    });
+
+    // cleanup (IMPORTANT)
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
 
   return (
     <div className="app">
+
+      { /* Cursors */}
+      <div className="cursor" id="cursor" ref={cursorRef}></div>
+      <div className="cursor-ring" id="cursorRing" ref={ringRef}></div>
+
       <header className="header">
         <Nav />
       </header>
