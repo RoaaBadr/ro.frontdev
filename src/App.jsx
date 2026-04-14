@@ -1,4 +1,5 @@
 import './App.css'
+import Hero from './components/Hero'
 import Nav from './components/Nav'
 
 function App() {
@@ -6,17 +7,12 @@ function App() {
   return (
     <div className="app">
       <header className="header">
-        <Nav/>
+        <Nav />
       </header>
 
       <main>
-        <section className="hero" id="hero">
-          <div className="hero-content">
-            <h1>Hi, I'm John Doe!</h1>
-            <p className="hero-subtitle">Front-End Developer</p>
-            <p className="hero-description">Building beautiful digital experiences</p>
-            <a href="#contact" className="cta-button">Get In Touch</a>
-          </div>
+        <section>
+          <Hero />
         </section>
 
         <section className="about" id="about">
