@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import '../css/SplashScreen.css';
 
-export default function SplashScreen({ onFinish }) {
+export default function Splash({ onFinish }) {
   const [count, setCount] = useState(0);
   const [hide, setHide] = useState(false);
 
