@@ -15,24 +15,7 @@ export default function App() {
   const [siteVisible, setSiteVisible] = useState(false);
   const [heroVisible, setHeroVisible] = useState(false);
   const [splashGone, setSplashGone] = useState(false);
-
-  useEffect(() => {
-    const hideTimer = setTimeout(() => {
-      setSplashHiding(true);
-
-      const removeTimer = setTimeout(() => {
-        setSplashGone(true);
-        setSiteVisible(true);
-        setHeroVisible(true);
-        initScrollReveal();
-      }, 900);
-
-      return () => clearTimeout(removeTimer);
-    }, 3200);
-
-    return () => clearTimeout(hideTimer);
-  }, []);
-
+  
   const initScrollReveal = () => {
     const observer = new IntersectionObserver((entries, observer) => {
       entries.forEach((entry) => {
@@ -48,6 +31,23 @@ export default function App() {
 
     document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
   };
+  useEffect(() => {
+    const hideTimer = setTimeout(() => {
+      setSplashHiding(true);
+
+      const removeTimer = setTimeout(() => {
+        setSplashGone(true);
+        setSiteVisible(true);
+        setHeroVisible(true);
+        initScrollReveal();
+      }, 900);
+
+      return () => clearTimeout(removeTimer);
+    }, 3200);
+    
+    return () => clearTimeout(hideTimer);
+  }, []);
+
 
   return (
     <>
