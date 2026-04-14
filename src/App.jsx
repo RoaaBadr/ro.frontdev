@@ -10,128 +10,60 @@ import Works from './components/Works';
 import CTA from './components/CTA';
 import Footer from './components/Footer';
 
-function App() {
-  //Splash Screen State
-  const [showSplash, setShowSplash] = useState(true);
-
-  // Cursor Effect
-  const cursorRef = useRef(null);
-  const ringRef = useRef(null);
+export default function App() {
+  const [splashHiding, setSplashHiding] = useState(false);
+  const [siteVisible, setSiteVisible] = useState(false);
+  const [heroVisible, setHeroVisible] = useState(false);
+  const [splashGone, setSplashGone] = useState(false);
 
   useEffect(() => {
-    let mx = 0,
-      my = 0,
-      rx = 0,
-      ry = 0;
+    const hideTimer = setTimeout(() => {
+      setSplashHiding(true);
 
-    const cursor = cursorRef.current;
-    const ring = ringRef.current;
+      const removeTimer = setTimeout(() => {
+        setSplashGone(true);
+        setSiteVisible(true);
+        setHeroVisible(true);
+        initScrollReveal();
+      }, 900);
 
-    const handleMouseMove = (e) => {
-      mx = e.clientX;
-      my = e.clientY;
+      return () => clearTimeout(removeTimer);
+    }, 3200);
 
-      cursor.style.left = mx + "px";
-      cursor.style.top = my + "px";
-    };
-
-    const animateRing = () => {
-      rx += (mx - rx) * 0.14;
-      ry += (my - ry) * 0.14;
-
-      ring.style.left = rx + "px";
-      ring.style.top = ry + "px";
-
-      requestAnimationFrame(animateRing);
-    };
-
-    document.addEventListener("mousemove", handleMouseMove);
-    animateRing();
-
-    // Hover effects
-    const elements = document.querySelectorAll(
-      "a, button, .work-card, .tech-card"
-    );
-
-    elements.forEach((el) => {
-      el.addEventListener("mouseenter", () => {
-        ring.style.width = "56px";
-        ring.style.height = "56px";
-        ring.style.borderColor = "var(--amber)";
-        cursor.style.transform = "translate(-50%, -50%) scale(0.5)";
-      });
-
-      el.addEventListener("mouseleave", () => {
-        ring.style.width = "36px";
-        ring.style.height = "36px";
-        ring.style.borderColor = "var(--amber)";
-        cursor.style.transform = "translate(-50%, -50%) scale(1)";
-      });
-    });
-
-    // cleanup (IMPORTANT)
-    return () => {
-      document.removeEventListener("mousemove", handleMouseMove);
-    };
+    return () => clearTimeout(hideTimer);
   }, []);
 
+  const initScrollReveal = () => {
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.12,
+      rootMargin: '0px 0px -40px 0px',
+    });
+
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+  };
+
   return (
-    <div className="app">
-      { /* Cursors */}
-      <div className="cursor" id="cursor" ref={cursorRef}></div>
-      <div className="cursor-ring" id="cursorRing" ref={ringRef}></div>
+    <>
+      <Cursor />
+      {!splashGone && <Splash hiding={splashHiding} />}
 
-      { /* Sit */}
-      {showSplash ? (
-        <SplashScreen onFinish={() => setShowSplash(false)} />
-      ) : (
-        <div id="site" className="visible">
-          <header className="header">
-            <Nav />
-          </header>
-
-          <main>
-            <section>
-              <Hero />
-            </section>
-
-            <section className="about" id="about">
-              <h2>About Me</h2>
-              <p>I'm a passionate front-end developer with expertise in creating responsive and user-friendly websites. I love turning ideas into reality through clean code and creative design.</p>
-            </section>
-
-            <section className="projects" id="projects">
-              <h2>Projects</h2>
-              <div className="projects-grid">
-                <article className="project-card">
-                  <h3>Project One</h3>
-                  <p>A brief description of this amazing project.</p>
-                </article>
-                <article className="project-card">
-                  <h3>Project Two</h3>
-                  <p>A brief description of this amazing project.</p>
-                </article>
-                <article className="project-card">
-                  <h3>Project Three</h3>
-                  <p>A brief description of this amazing project.</p>
-                </article>
-              </div>
-            </section>
-
-            <section className="contact" id="contact">
-              <h2>Get In Touch</h2>
-              <p>Feel free to reach out for collaborations or just a friendly chat.</p>
-              <a href="mailto:hello@johndoe.com" className="cta-button">Send Message</a>
-            </section>
-          </main>
-
-          <footer className="footer">
-            <p>&copy; 2026 John Doe. All rights reserved.</p>
-          </footer>
-        </div>
-      )}
-    </div>
-  )
+      <div id="site" className={siteVisible ? 'visible' : ''}>
+        <Nav />
+        <Hero visible={heroVisible} />
+        <Marquee />
+        <About />
+        <TechStack />
+        <Works />
+        <CTA />
+        <Footer />
+      </div>
+    </>
+  );
 }
-
-export default App
