@@ -1,8 +1,14 @@
-import { useEffect, useRef, useState } from "react";
-import SplashScreen from './components/SplashScreen'
-import Hero from './components/Hero'
-import Nav from './components/Nav'
-import './App.css'
+import { useEffect, useState } from 'react';
+import Cursor from './components/Cursor';
+import Splash from './components/Splash';
+import Nav from './components/Nav';
+import Hero from './components/Hero';
+import Marquee from './components/Marquee';
+import About from './components/About';
+import TechStack from './components/TechStack';
+import Works from './components/Works';
+import CTA from './components/CTA';
+import Footer from './components/Footer';
 
 function App() {
   //Splash Screen State
