@@ -1,9 +1,13 @@
-import './App.css'
+import { useEffect, useRef, useState } from "react";
+import SplashScreen from './components/SplashScreen'
 import Hero from './components/Hero'
 import Nav from './components/Nav'
-import { useEffect, useRef } from "react";
+import './App.css'
 
 function App() {
+  //Splash Screen State
+  const [showSplash, setShowSplash] = useState(true);
+
   // Cursor Effect
   const cursorRef = useRef(null);
   const ringRef = useRef(null);
@@ -67,53 +71,59 @@ function App() {
 
   return (
     <div className="app">
-
       { /* Cursors */}
       <div className="cursor" id="cursor" ref={cursorRef}></div>
       <div className="cursor-ring" id="cursorRing" ref={ringRef}></div>
 
-      <header className="header">
-        <Nav />
-      </header>
+      { /* Sit */}
+      {showSplash ? (
+        <SplashScreen onFinish={() => setShowSplash(false)} />
+      ) : (
+        <div id="site" className="visible">
+          <header className="header">
+            <Nav />
+          </header>
 
-      <main>
-        <section>
-          <Hero />
-        </section>
+          <main>
+            <section>
+              <Hero />
+            </section>
 
-        <section className="about" id="about">
-          <h2>About Me</h2>
-          <p>I'm a passionate front-end developer with expertise in creating responsive and user-friendly websites. I love turning ideas into reality through clean code and creative design.</p>
-        </section>
+            <section className="about" id="about">
+              <h2>About Me</h2>
+              <p>I'm a passionate front-end developer with expertise in creating responsive and user-friendly websites. I love turning ideas into reality through clean code and creative design.</p>
+            </section>
 
-        <section className="projects" id="projects">
-          <h2>Projects</h2>
-          <div className="projects-grid">
-            <article className="project-card">
-              <h3>Project One</h3>
-              <p>A brief description of this amazing project.</p>
-            </article>
-            <article className="project-card">
-              <h3>Project Two</h3>
-              <p>A brief description of this amazing project.</p>
-            </article>
-            <article className="project-card">
-              <h3>Project Three</h3>
-              <p>A brief description of this amazing project.</p>
-            </article>
-          </div>
-        </section>
+            <section className="projects" id="projects">
+              <h2>Projects</h2>
+              <div className="projects-grid">
+                <article className="project-card">
+                  <h3>Project One</h3>
+                  <p>A brief description of this amazing project.</p>
+                </article>
+                <article className="project-card">
+                  <h3>Project Two</h3>
+                  <p>A brief description of this amazing project.</p>
+                </article>
+                <article className="project-card">
+                  <h3>Project Three</h3>
+                  <p>A brief description of this amazing project.</p>
+                </article>
+              </div>
+            </section>
 
-        <section className="contact" id="contact">
-          <h2>Get In Touch</h2>
-          <p>Feel free to reach out for collaborations or just a friendly chat.</p>
-          <a href="mailto:hello@johndoe.com" className="cta-button">Send Message</a>
-        </section>
-      </main>
+            <section className="contact" id="contact">
+              <h2>Get In Touch</h2>
+              <p>Feel free to reach out for collaborations or just a friendly chat.</p>
+              <a href="mailto:hello@johndoe.com" className="cta-button">Send Message</a>
+            </section>
+          </main>
 
-      <footer className="footer">
-        <p>&copy; 2026 John Doe. All rights reserved.</p>
-      </footer>
+          <footer className="footer">
+            <p>&copy; 2026 John Doe. All rights reserved.</p>
+          </footer>
+        </div>
+      )}
     </div>
   )
 }

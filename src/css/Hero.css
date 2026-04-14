@@ -1,46 +1,161 @@
-
+/* ── HERO ── */
 .hero {
-  min-height: calc(100vh - 70px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  background-color: var(--light-background);
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 120px 48px 80px;
+    gap: 40px;
+    position: relative;
+    overflow: hidden;
 }
 
-.hero-content {
-  max-width: 800px;
+.hero::before {
+    content: '';
+    position: absolute;
+    top: -200px;
+    right: -200px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(245, 166, 35, 0.07) 0%, transparent 70%);
+    pointer-events: none;
+    animation: orbFloat 8s ease-in-out infinite;
 }
 
-.hero h1 {
-  font-size: 3.5rem;
-  margin-bottom: 1rem;
-  color: var(--primary-color);
+@keyframes orbFloat {
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(-40px, 30px);
+    }
 }
 
-.hero-subtitle {
-  font-size: 1.5rem;
-  color: var(--accent-color);
-  margin-bottom: 1rem;
+.hero-left {
+    position: relative;
 }
 
-.hero-description {
-  font-size: 1.125rem;
-  color: var(--secondary-color);
-  margin-bottom: 2rem;
+.hero-greeting {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 300;
+    color: var(--mid);
+    margin-bottom: 8px;
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
 }
 
-.cta-button {
-  display: inline-block;
-  padding: 1rem 2rem;
-  background-color: var(--accent-color);
-  color: var(--white);
-  border-radius: 50px;
-  font-weight: 600;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+.hero-greeting.visible {
+    opacity: 1;
+    transform: translateX(0);
 }
 
-.cta-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(9, 132, 227, 0.3);
+.hero-greeting b {
+    color: var(--black);
+    font-weight: 500;
+}
+
+.hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(72px, 9vw, 120px);
+    line-height: 0.92;
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: opacity 0.8s ease 0.1s, transform 0.8s ease 0.1s;
+}
+
+.hero-title.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.hero-title em {
+    font-style: italic;
+    font-family: 'Syne', sans-serif;
+    font-weight: 400;
+    font-size: 0.8em;
+    color: var(--mid);
+}
+
+.hero-dot {
+    color: var(--amber);
+}
+
+.hero-right {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    opacity: 0;
+    transform: translateX(30px);
+    transition: opacity 0.8s ease 0.2s, transform 0.8s ease 0.2s;
+}
+
+.hero-right.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.hero-desc {
+    font-size: 16px;
+    line-height: 1.75;
+    color: #555;
+    max-width: 360px;
+}
+
+.hero-btns {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--amber);
+    color: var(--white);
+    padding: 14px 28px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.25s ease, transform 0.25s ease, gap 0.25s ease;
+    letter-spacing: 0.02em;
+}
+
+.btn-primary:hover {
+    background: var(--amber-dark);
+    transform: translateY(-2px);
+    gap: 16px;
+}
+
+.btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: transparent;
+    color: var(--black);
+    padding: 13px 28px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    border: 1.5px solid var(--black);
+    cursor: pointer;
+    transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+    letter-spacing: 0.02em;
+}
+
+.btn-outline:hover {
+    background: var(--black);
+    color: var(--white);
+    transform: translateY(-2px);
 }
