@@ -15,7 +15,7 @@ export default function App() {
   const [siteVisible, setSiteVisible] = useState(false);
   const [heroVisible, setHeroVisible] = useState(false);
   const [splashGone, setSplashGone] = useState(false);
-  
+
   const initScrollReveal = () => {
     const observer = new IntersectionObserver((entries, observer) => {
       entries.forEach((entry) => {
@@ -32,6 +32,8 @@ export default function App() {
     document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
   };
   useEffect(() => {
+    window.scrollTo(0, 0);
+
     const hideTimer = setTimeout(() => {
       setSplashHiding(true);
 
@@ -44,10 +46,14 @@ export default function App() {
 
       return () => clearTimeout(removeTimer);
     }, 2200); // I changed this from 3000 to 2200
-    
+
     return () => clearTimeout(hideTimer);
   }, []);
 
+  // Ensure page starts at top on refresh
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>
