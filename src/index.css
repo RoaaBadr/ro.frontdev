@@ -440,6 +440,7 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 60px;
+  height: 30em;
   align-items: center;
   position: relative;
   overflow: hidden;
