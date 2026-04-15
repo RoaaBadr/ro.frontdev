@@ -205,7 +205,8 @@ body {
 #site.visible { opacity: 1; }
 
 /* NAV */
-/*nav {
+/*
+nav {
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 100;
@@ -258,6 +259,7 @@ body {
   gap: 40px;
   position: relative;
   overflow: hidden;
+  
 }
 
 .hero::before {
@@ -435,7 +437,7 @@ body {
 
 /* ABOUT */
 .about {
-  background: var(--gray);
+  /* background: var(--gray); */
   padding: 100px 48px;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -444,6 +446,7 @@ body {
   align-items: center;
   position: relative;
   overflow: hidden;
+  
 }
 
 .about-bg-text {

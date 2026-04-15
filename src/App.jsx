@@ -60,7 +60,7 @@ export default function App() {
       <Cursor />
       {!splashGone && <Splash hiding={splashHiding} />}
 
-      <div id="site" className={siteVisible ? 'visible' : ''}>
+      <div id="site" className={`container ${siteVisible ? 'visible' : ''}`}>
         <Nav />
         <Hero visible={heroVisible} />
         <Marquee />
