@@ -1,65 +1,632 @@
-const techs = [
+import { useState, useEffect, useRef } from "react";
+
+/* ─────────────────────────────────────────────
+   DATA
+───────────────────────────────────────────── */
+const CATEGORIES = [
   {
-    name: 'JavaScript',
-    delay: 'reveal-delay-1',
-    icon: (
-      <span style={{ fontFamily: 'monospace', fontWeight: 700, fontSize: 22 }}>JS</span>
-    ),
+    id: "frontend",
+    label: "Frontend",
+    color: "#F5A623",
+    desc: "Building the interfaces people interact with — fast, accessible, beautiful.",
+    techs: [
+      { name: "JavaScript", icon: "JS", bg: "#F7DF1E", fg: "#000" },
+      { name: "React.js",   icon: "⚛",  bg: "#20232a", fg: "#61DAFB" },
+      { name: "Next.js",    icon: "N",  bg: "#000",    fg: "#fff" },
+      { name: "TypeScript", icon: "TS", bg: "#3178C6", fg: "#fff" },
+      { name: "Tailwind",   icon: "TW", bg: "#0EA5E9", fg: "#fff" },
+      { name: "Framer",     icon: "F",  bg: "#0055FF", fg: "#fff" },
+    ],
   },
   {
-    name: 'React.js',
-    delay: 'reveal-delay-2',
-    icon: (
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="#61DAFB">
-        <path d="M12 9.861A2.139 2.139 0 1 0 12 14.139 2.139 2.139 0 1 0 12 9.861zM6.008 16.255l-.472-.12C2.018 15.246 0 13.737 0 11.996s2.018-3.25 5.536-4.139l.472-.119.133.468a23.53 23.53 0 0 0 1.363 3.578l.101.213-.101.213a23.307 23.307 0 0 0-1.363 3.578l-.133.467zM5.317 8.95c-2.674.751-4.315 1.9-4.315 3.046 0 1.145 1.641 2.294 4.315 3.046a24.95 24.95 0 0 1 1.182-3.046A24.752 24.752 0 0 1 5.317 8.95zM17.992 16.255l-.133-.468a23.456 23.456 0 0 0-1.364-3.578l-.101-.213.101-.213a23.275 23.275 0 0 0 1.364-3.578l.133-.468.473.119c3.517.889 5.535 2.398 5.535 4.139s-2.018 3.25-5.535 4.139l-.473.12zm-.491-4.259c.48 1.039.877 2.06 1.182 3.046 2.675-.752 4.315-1.901 4.315-3.046 0-1.146-1.641-2.294-4.315-3.046a24.788 24.788 0 0 1-1.182 3.046zM5.56 13.047l-.133-.468c-.172-.617-.29-1.238-.29-1.87s.118-1.252.29-1.87l.133-.468.484.104a23.155 23.155 0 0 0 3.8.497l.209.017.127.168a23.392 23.392 0 0 0 2.208 2.812l.153.166-.153.166a23.351 23.351 0 0 0-2.208 2.812l-.127.168-.209.016a23.186 23.186 0 0 0-3.8.497l-.484.103zm1.022-3.806c-.12.455-.181.927-.181 1.396s.061.941.181 1.396c1.146-.121 2.298-.329 3.42-.623A24.98 24.98 0 0 1 8 11.997a24.736 24.736 0 0 1-.748-2.033 25.156 25.156 0 0 0-2.67.277zm9.958 3.806l-.484-.104a23.155 23.155 0 0 0-3.8-.497l-.209-.016-.127-.168a23.397 23.397 0 0 0-2.208-2.812l-.153-.166.153-.166a23.35 23.35 0 0 0 2.208-2.812l.127-.168.209-.017a23.137 23.137 0 0 0 3.8-.497l.484-.104.133.468c.172.617.29 1.238.29 1.87s-.118 1.253-.29 1.871l-.133.468zm-1.208-1.67c.12-.455.181-.927.181-1.396s-.061-.941-.181-1.396a25.198 25.198 0 0 0-2.67-.277 24.645 24.645 0 0 1 .748 2.033 24.974 24.974 0 0 1-.748 2.033 25.048 25.048 0 0 0 2.67-.277z"/>
-      </svg>
-    ),
+    id: "mobile",
+    label: "Mobile",
+    color: "#E8845A",
+    desc: "Cross-platform mobile apps that feel native on every device.",
+    techs: [
+      { name: "React Native", icon: "RN", bg: "#20232a", fg: "#61DAFB" },
+      { name: "Expo",         icon: "EX", bg: "#000",    fg: "#fff" },
+      { name: "Reanimated",   icon: "RA", bg: "#2D2D2D", fg: "#F5A623" },
+      { name: "Zustand",      icon: "Z",  bg: "#433E38", fg: "#fff" },
+    ],
   },
   {
-    name: 'Next.js',
-    delay: 'reveal-delay-3',
-    icon: (
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M11.572 0c-.176 0-.31.001-.358.007a19.76 19.76 0 0 1-.364.033C7.443.346 4.25 2.185 2.228 5.012a11.875 11.875 0 0 0-2.119 5.243c-.096.659-.108.854-.108 1.747s.012 1.089.108 1.748c.652 4.506 3.86 8.292 8.209 9.695.779.25 1.6.422 2.534.525.363.04 1.935.04 2.299 0 1.611-.178 2.977-.577 4.323-1.264.207-.106.247-.134.219-.158-.02-.013-.9-1.193-1.955-2.62l-1.919-2.592-2.404-3.558a338.739 338.739 0 0 0-2.422-3.556c-.009-.002-.018 1.579-.023 3.51-.007 3.38-.01 3.515-.052 3.595a.426.426 0 0 1-.206.214c-.075.037-.14.044-.495.044H7.81l-.108-.068a.438.438 0 0 1-.157-.171l-.05-.106.006-4.703.007-4.705.072-.092a.645.645 0 0 1 .174-.143c.096-.047.134-.052.54-.052.478 0 .558.018.682.154.035.038 1.337 1.999 2.895 4.361a10760.433 10760.433 0 0 0 4.735 7.17l1.9 2.879.096-.063a12.317 12.317 0 0 0 2.466-2.163 11.944 11.944 0 0 0 2.824-6.134c.096-.66.108-.854.108-1.748 0-.893-.012-1.088-.108-1.747-.652-4.506-3.859-8.292-8.208-9.695a12.597 12.597 0 0 0-2.499-.523A33.119 33.119 0 0 0 11.573 0zm4.069 7.217c.347 0 .408.005.486.047a.473.473 0 0 1 .237.277c.018.06.023 1.365.018 4.304l-.006 4.218-.744-1.14-.746-1.14v-3.066c0-1.982.01-3.097.023-3.15a.478.478 0 0 1 .233-.296c.096-.05.13-.054.499-.054z"/>
-      </svg>
-    ),
+    id: "backend",
+    label: "Backend",
+    color: "#7BC67E",
+    desc: "Scalable server-side systems and real-time data pipelines.",
+    techs: [
+      { name: "Node.js",   icon: "NO", bg: "#339933", fg: "#fff" },
+      { name: "Firebase",  icon: "🔥", bg: "#1c1c1c", fg: "#FFA000" },
+      { name: "Supabase",  icon: "SB", bg: "#1C1C1C", fg: "#3ECF8E" },
+      { name: "MongoDB",   icon: "MG", bg: "#13AA52", fg: "#fff" },
+      { name: "REST API",  icon: "AP", bg: "#2D2D2D", fg: "#F5A623" },
+    ],
   },
   {
-    name: 'Expo / RN',
-    delay: 'reveal-delay-4',
-    icon: <span style={{ fontSize: 26 }}>📱</span>,
-  },
-  {
-    name: 'Tailwind',
-    delay: 'reveal-delay-1',
-    icon: (
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="#38BDF8">
-        <path d="M12 6c-2.67 0-4.33 1.33-5 4 1-1.33 2.17-1.83 3.5-1.5.76.19 1.31.74 1.91 1.35.98 1 2.09 2.15 4.59 2.15 2.67 0 4.33-1.33 5-4-1 1.33-2.17 1.83-3.5 1.5-.76-.19-1.3-.74-1.91-1.35C15.61 7.15 14.5 6 12 6zm-5 6c-2.67 0-4.33 1.33-5 4 1-1.33 2.17-1.83 3.5-1.5.76.19 1.3.74 1.91 1.35C8.39 16.85 9.5 18 12 18c2.67 0 4.33-1.33 5-4-1 1.33-2.17 1.83-3.5 1.5-.76-.19-1.3-.74-1.91-1.35C10.61 13.15 9.5 12 7 12z"/>
-      </svg>
-    ),
-  },
-  {
-    name: 'Firebase',
-    delay: 'reveal-delay-2',
-    icon: <span style={{ fontSize: 26 }}>🔥</span>,
+    id: "tools",
+    label: "Tools",
+    color: "#A78BFA",
+    desc: "The workflow, design, and DevOps tools that keep everything running.",
+    techs: [
+      { name: "Figma",      icon: "FG", bg: "#F24E1E", fg: "#fff" },
+      { name: "Git",        icon: "GT", bg: "#F05032", fg: "#fff" },
+      { name: "VS Code",    icon: "VS", bg: "#007ACC", fg: "#fff" },
+      { name: "Vercel",     icon: "VC", bg: "#000",    fg: "#fff" },
+      { name: "Vite",       icon: "VT", bg: "#646CFF", fg: "#fff" },
+    ],
   },
 ];
 
+/* ─────────────────────────────────────────────
+   STYLES
+───────────────────────────────────────────── */
+const css = `
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@300;400&display=swap');
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+
+.ts-page{ background: var(--black); color: var(--white); font-family: 'DM Sans', sans-serif; }
+
+/* wrapper
+.ts-page {
+  background: var(--black);
+} */
+
+/* ── SCROLL CONTAINER ── */
+.ts-scroll-container {
+  position: relative;
+}
+
+/* sticky panel: left = big title, right = cards */
+.ts-sticky-panel {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  overflow: hidden;
+}
+
+/* ── LEFT SIDE ── */
+.ts-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px 48px 60px 60px;
+  position: relative;
+  border-right: 1px solid var(--border);
+}
+
+.ts-left-top {
+  margin-bottom: 48px;
+}
+
+.ts-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ts-eyebrow::before {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 1px;
+  background: var(--amber);
+}
+
+.ts-main-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(56px, 6vw, 88px);
+  line-height: 0.92;
+  letter-spacing: -0.01em;
+  color: var(--white);
+}
+
+.ts-main-sub {
+  font-size: 13px;
+  color: var(--mid);
+  margin-top: 20px;
+  line-height: 1.8;
+  max-width: 300px;
+  letter-spacing: 0.02em;
+}
+
+/* category nav */
+.ts-cat-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ts-cat-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+  cursor: default;
+  position: relative;
+  transition: opacity 0.3s;
+}
+
+.ts-cat-item:first-child { border-top: 1px solid var(--border); }
+
+.ts-cat-item.inactive { opacity: 0.28; }
+
+.ts-cat-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  font-weight: 300;
+  color: var(--mid);
+  letter-spacing: 0.1em;
+  min-width: 24px;
+  transition: color 0.3s;
+}
+
+.ts-cat-item.active .ts-cat-num {
+  color: var(--amber);
+}
+
+.ts-cat-name {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: -0.01em;
+  transition: color 0.3s;
+  color: rgba(247,245,240,0.4);
+}
+
+.ts-cat-item.active .ts-cat-name {
+  color: var(--white);
+}
+
+.ts-cat-bar {
+  position: absolute;
+  left: -60px;
+  top: 0; bottom: 0;
+  width: 3px;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94), background 0.3s;
+  border-radius: 0 2px 2px 0;
+}
+
+.ts-cat-item.active .ts-cat-bar {
+  transform: scaleY(1);
+}
+
+.ts-cat-arrow {
+  margin-left: auto;
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 0.3s, transform 0.3s;
+  color: var(--amber);
+  font-size: 14px;
+}
+
+.ts-cat-item.active .ts-cat-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* progress dots */
+.ts-progress {
+  position: absolute;
+  bottom: 48px;
+  left: 60px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.ts-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--border);
+  transition: background 0.3s, transform 0.3s, width 0.3s;
+}
+
+.ts-dot.active {
+  width: 20px;
+  border-radius: 3px;
+  transform: scaleY(1);
+}
+
+/* ── RIGHT SIDE ── */
+.ts-right {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px 60px 60px 48px;
+}
+
+/* category panel (one per category, absolutely stacked) */
+.ts-panel {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px 60px 60px 48px;
+  pointer-events: none;
+}
+
+.ts-panel.entering-up    { animation: enterUp 0.55s cubic-bezier(0.25,0.46,0.45,0.94) forwards; pointer-events: auto; }
+.ts-panel.entering-down  { animation: enterDown 0.55s cubic-bezier(0.25,0.46,0.45,0.94) forwards; pointer-events: auto; }
+.ts-panel.leaving-up     { animation: leaveUp 0.55s cubic-bezier(0.25,0.46,0.45,0.94) forwards; }
+.ts-panel.leaving-down   { animation: leaveDown 0.55s cubic-bezier(0.25,0.46,0.45,0.94) forwards; }
+.ts-panel.active-still   { opacity: 1; transform: translateY(0); pointer-events: auto; }
+.ts-panel.hidden         { opacity: 0; pointer-events: none; }
+
+@keyframes enterUp {
+  from { opacity: 0; transform: translateY(60px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes enterDown {
+  from { opacity: 0; transform: translateY(-60px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes leaveUp {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-60px); }
+}
+@keyframes leaveDown {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(60px); }
+}
+
+/* panel header */
+.ts-panel-header {
+  margin-bottom: 36px;
+}
+
+.ts-panel-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.ts-panel-desc {
+  font-size: 13px;
+  color: var(--mid);
+  line-height: 1.75;
+  max-width: 340px;
+  letter-spacing: 0.01em;
+}
+
+/* tech grid */
+.ts-tech-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.ts-tech-card {
+  border: 1px solid var(--border);
+  padding: 24px 16px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+  transition: border-color 0.25s, transform 0.25s;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.ts-tech-card.card-in {
+  animation: cardIn 0.45s cubic-bezier(0.25,0.46,0.45,0.94) forwards;
+}
+
+@keyframes cardIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.ts-tech-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.ts-tech-card:hover {
+  transform: translateY(-3px);
+}
+
+.ts-tech-card:hover::after {
+  transform: scaleX(1);
+}
+
+.ts-tech-icon-wrap {
+  width: 48px; height: 48px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DM Mono', monospace;
+  font-weight: 400;
+  font-size: 14px;
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+}
+
+.ts-tech-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(247,245,240,0.5);
+  text-align: center;
+}
+
+/* scroll phantom (creates scroll height) */
+.ts-phantom {
+  /* height set in JS */
+}
+
+/* ── SCROLL HINT ── */
+.ts-scroll-hint {
+  position: absolute;
+  bottom: 48px;
+  right: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.4;
+}
+
+.ts-scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, transparent, var(--amber));
+  animation: scrollLine 1.8s ease-in-out infinite;
+}
+
+@keyframes scrollLine {
+  0%, 100% { transform: scaleY(0); transform-origin: top; }
+  50% { transform: scaleY(1); transform-origin: top; }
+}
+
+.ts-scroll-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--mid);
+  writing-mode: vertical-rl;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .ts-sticky-panel {
+    grid-template-columns: 1fr;
+    height: auto;
+    position: relative;
+  }
+  .ts-left {
+    padding: 48px 24px;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+  .ts-right { padding: 40px 24px; min-height: 420px; }
+  .ts-panel { padding: 40px 24px; }
+  .ts-tech-grid { grid-template-columns: repeat(2, 1fr); }
+  .ts-progress { left: 24px; }
+}
+`;
+
+/* ─────────────────────────────────────────────
+   COMPONENT
+───────────────────────────────────────────── */
 export default function TechStack() {
+  const [activeIdx, setActiveIdx] = useState(0);
+  const [direction, setDirection] = useState("up"); // "up" | "down"
+  const [panelStates, setPanelStates] = useState(
+    CATEGORIES.map((_, i) => (i === 0 ? "active-still" : "hidden"))
+  );
+  const [cardKeys, setCardKeys] = useState(0); // force re-mount cards on category change
+
+  const containerRef = useRef(null);
+  const stickyRef = useRef(null);
+  const lastIdx = useRef(0);
+  const ticking = useRef(false);
+
+  // ── SCROLL HANDLER ──
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const onScroll = () => {
+      if (ticking.current) return;
+      ticking.current = true;
+      requestAnimationFrame(() => {
+        const rect = container.getBoundingClientRect();
+        const totalScroll = container.offsetHeight - window.innerHeight;
+        const scrolled = Math.max(0, -rect.top);
+        const progress = Math.min(1, scrolled / totalScroll);
+        const raw = progress * (CATEGORIES.length - 1);
+        const newIdx = Math.round(raw);
+        const clamped = Math.max(0, Math.min(CATEGORIES.length - 1, newIdx));
+
+        if (clamped !== lastIdx.current) {
+          const dir = clamped > lastIdx.current ? "up" : "down";
+          transitionTo(lastIdx.current, clamped, dir);
+          lastIdx.current = clamped;
+        }
+        ticking.current = false;
+      });
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  function transitionTo(from, to, dir) {
+    setDirection(dir);
+    setActiveIdx(to);
+    setCardKeys(k => k + 1);
+
+    setPanelStates(prev => {
+      const next = [...prev];
+      // leaving animation
+      next[from] = dir === "up" ? "leaving-up" : "leaving-down";
+      // entering animation
+      next[to] = dir === "up" ? "entering-up" : "entering-down";
+      return next;
+    });
+
+    // after animation, clean up
+    setTimeout(() => {
+      setPanelStates(prev => {
+        const next = [...prev];
+        next[from] = "hidden";
+        next[to] = "active-still";
+        return next;
+      });
+    }, 580);
+  }
+
+  const cat = CATEGORIES[activeIdx];
+  const PHANTOM_HEIGHT = `${(CATEGORIES.length - 1) * 100 + 100}vh`;
+
   return (
-    <section className="tech">
-      <div className="section-header reveal">
-        <h2 className="section-title">MY TECH STACK</h2>
-        <span className="section-sub">Technologies I use to build digital products</span>
+    <>
+      <style>{css}</style>
+      <div className="ts-page">
+
+        {/* phantom height container → makes page scrollable */}
+        <div ref={containerRef} className="ts-scroll-container" style={{ height: PHANTOM_HEIGHT }}>
+
+          {/* sticky viewport */}
+          <div ref={stickyRef} className="ts-sticky-panel">
+
+            {/* ── LEFT ── */}
+            <div className="ts-left">
+              <div className="ts-left-top">
+                <div className="ts-eyebrow">Tech Stack</div>
+                <h2 className="ts-main-title">MY<br/>TECH<br/>STACK</h2>
+                <p className="ts-main-sub">
+                  Technologies I use to build digital products — from pixel to production.
+                </p>
+              </div>
+
+              {/* category nav */}
+              <div className="ts-cat-nav">
+                {CATEGORIES.map((c, i) => (
+                  <div
+                    key={c.id}
+                    className={`ts-cat-item ${i === activeIdx ? "active" : "inactive"}`}
+                  >
+                    <div
+                      className="ts-cat-bar"
+                      style={{ background: c.color }}
+                    />
+                    <span className="ts-cat-num">0{i + 1}</span>
+                    <span
+                      className="ts-cat-name"
+                      style={i === activeIdx ? { color: c.color } : {}}
+                    >
+                      {c.label}
+                    </span>
+                    <span className="ts-cat-arrow">→</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* progress dots */}
+              <div className="ts-progress">
+                {CATEGORIES.map((c, i) => (
+                  <div
+                    key={c.id}
+                    className={`ts-dot ${i === activeIdx ? "active" : ""}`}
+                    style={i === activeIdx ? { background: c.color } : {}}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* ── RIGHT ── */}
+            <div className="ts-right">
+              {CATEGORIES.map((category, ci) => (
+                <div
+                  key={category.id}
+                  className={`ts-panel ${panelStates[ci]}`}
+                >
+                  <div className="ts-panel-header">
+                    <div
+                      className="ts-panel-label"
+                      style={{ color: category.color }}
+                    >
+                      {String(ci + 1).padStart(2, "0")} — {category.label}
+                    </div>
+                    <p className="ts-panel-desc">{category.desc}</p>
+                  </div>
+
+                  <div className="ts-tech-grid">
+                    {category.techs.map((tech, ti) => (
+                      <div
+                        key={`${cardKeys}-${tech.name}`}
+                        className="ts-tech-card card-in"
+                        style={{
+                          borderColor: panelStates[ci] === "active-still" || panelStates[ci].startsWith("entering")
+                            ? "rgba(255,255,255,0.07)"
+                            : "transparent",
+                          animationDelay: `${ti * 60}ms`,
+                          ["--hover-color"]: category.color,
+                        }}
+                      >
+                        <style>{`
+                          .ts-tech-card:hover { border-color: ${category.color}44 !important; }
+                          .ts-tech-card::after { background: ${category.color}; }
+                        `}</style>
+
+                        <div
+                          className="ts-tech-icon-wrap"
+                          style={{ background: tech.bg, color: tech.fg }}
+                        >
+                          {tech.icon}
+                        </div>
+                        <div className="ts-tech-name">{tech.name}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+
+              {/* scroll hint — only shown on first category */}
+              {activeIdx === 0 && (
+                <div className="ts-scroll-hint">
+                  <div className="ts-scroll-line" />
+                  <span className="ts-scroll-label">scroll</span>
+                </div>
+              )}
+            </div>
+
+          </div>{/* /sticky */}
+        </div>{/* /scroll-container */}
       </div>
-      <div className="tech-grid">
-        {techs.map((tech) => (
-          <div key={tech.name} className={`tech-card reveal ${tech.delay}`}>
-            <div className="tech-icon">{tech.icon}</div>
-            <div className="tech-name">{tech.name}</div>
-          </div>
-        ))}
-      </div>
-    </section>
+    </>
   );
 }

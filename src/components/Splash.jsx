@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 export default function Splash({ hiding }) {
   const [count, setCount] = useState(0);
 
+  // Simulate loading progress
   useEffect(() => {
     const interval = setInterval(() => {
       setCount((prev) => {
@@ -25,6 +26,9 @@ export default function Splash({ hiding }) {
         </div>
         <div className="splash-role">Frontend Developer &amp; UI Designer</div>
       </div>
+      {/* 
+      // progress bar removed for cleaner look, can be re-added if needed
+      
       <div className="splash-progress">
         <div className="splash-bar-bg">
           <div className="splash-bar-fill" />
@@ -32,7 +36,7 @@ export default function Splash({ hiding }) {
         <div className="splash-num">
           {String(count).padStart(3, '0')}
         </div>
-      </div>
-    </div>
+      </div>*/}
+    </div> 
   );
 }

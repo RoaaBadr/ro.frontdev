@@ -43,7 +43,7 @@ export default function App() {
       }, 900);
 
       return () => clearTimeout(removeTimer);
-    }, 3200);
+    }, 2200); // I changed this from 3000 to 2200
     
     return () => clearTimeout(hideTimer);
   }, []);
