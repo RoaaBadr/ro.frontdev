@@ -34,7 +34,7 @@ body {
   pointer-events: none;
   z-index: 9999;
   transform: translate(-50%, -50%);
-  mix-blend-mode: multiply;
+  /* mix-blend-mode: difference; */
   transition: transform 0.1s ease;
 }
 
@@ -48,7 +48,7 @@ body {
   z-index: 9998;
   transform: translate(-50%, -50%);
   transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease;
-  mix-blend-mode: multiply;
+  /* mix-blend-mode: difference; */
 }
 
 .cursor-ring.hovered {
@@ -205,7 +205,7 @@ body {
 #site.visible { opacity: 1; }
 
 /* NAV */
-nav {
+/*nav {
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 100;
@@ -215,7 +215,7 @@ nav {
   padding: 24px 48px;
   mix-blend-mode: difference;
 }
-/*
+
 .nav-icons {
   display: flex;
   gap: 20px;
