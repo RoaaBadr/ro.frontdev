@@ -403,17 +403,17 @@ export default function Nav() {
               <FiLinkedin size={17} className=""/>
             </a>
             {/* CTA */}
-            <button className="nav-cta" onClick={() => setActive("Contact")}>
+            {/* <button className="nav-cta" onClick={() => setActive("Contact")}>
               Hire me →
-            </button>
+            </button> */}
             {/* Hamburger */}
-            <button
+            {/* <button
               className={`hamburger${menuOpen ? " open" : ""}`}
               onClick={() => setMenuOpen(!menuOpen)}
               aria-label="Toggle menu"
             >
               <span /><span /><span />
-            </button>
+            </button> */}
           </div>
         </nav>
 

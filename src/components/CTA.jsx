@@ -8,8 +8,8 @@ export default function CTA() {
         <span>SOMETHING</span>
         TOGETHER.
       </h2>
-      <a href="mailto:hello@roaa.dev" className="cta-email reveal">
-        hello@roaa.dev →
+      <a href="mailto:roaa.muh90@gmail.com" className="cta-email reveal">
+        roaa.muh90@gmail.com →
       </a>
     </section>
   );
