@@ -332,12 +332,43 @@ const styles = `
 
 
   /* ── RESPONSIVE ── */
-  @media (max-width: 768px) {
-    .navbar { padding: 0 24px; }
-    .nav-center { display: none; }
-    .nav-cta { display: none; }
-    .hamburger { display: flex; }
-    .mobile-drawer-footer { left: 24px; right: 24px; }
+ @media (max-width: 480px) {
+    .navbar {
+      padding: 0 16px;
+      height: 60px;
+    }
+
+    /* smaller logo */
+    .logo-bracket,
+    .logo-slash {
+      font-size: 16px;
+    }
+
+    .logo-name {
+      font-size: 14px;
+    }
+
+    .logo-cursor {
+      height: 12px;
+    }
+
+    /* smaller icons */
+    .nav-right {
+      gap: 10px;
+    }
+
+    .nav-icon-btn {
+      padding: 4px;
+    }
+
+    .nav-icon-btn svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .hamburger {
+      display: flex;
+    }
   }
 `;
 
@@ -346,7 +377,7 @@ const NAV_LINKS = ["About", "Work", "Stack", "Contact"];
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [active, setActive] = useState("Work");
+  const [_, setActive] = useState("Work");
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
