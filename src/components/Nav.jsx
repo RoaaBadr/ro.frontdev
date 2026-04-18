@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { FiDribbble, FiGithub, FiLinkedin } from "react-icons/fi";
+import { FiGithub, FiLinkedin } from "react-icons/fi";
+import { RiBehanceFill } from "react-icons/ri";
 
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700&family=DM+Mono:wght@300;400&family=DM+Sans:wght@300;400;500&display=swap');
@@ -421,16 +422,16 @@ export default function Nav() {
 
           {/* RIGHT */}
           <div className="nav-right">
-            {/* Dribbble */}
-            <a href="#" className="nav-icon-btn" title="Dribbble" aria-label="Dribbble">
-              <FiDribbble size={17} className=""/>
+            {/* Behance */}
+            <a href="https://behance.com/roaa-badr" className="nav-icon-btn" title="Behance" aria-label="Behance">
+              <RiBehanceFill size={20} className=""/>
             </a>
             {/* GitHub */}
-            <a href="#" className="nav-icon-btn" title="GitHub" aria-label="GitHub">
+            <a href="https://github.com/RoaaBadr" className="nav-icon-btn" title="GitHub" aria-label="GitHub">
               <FiGithub size={17} className=""/>
             </a>
             {/* LinkedIn */}
-            <a href="#" className="nav-icon-btn" title="LinkedIn" aria-label="LinkedIn">
+            <a href="https://linkedin.com/in/roaa-badr/" className="nav-icon-btn" title="LinkedIn" aria-label="LinkedIn">
               <FiLinkedin size={17} className=""/>
             </a>
             {/* CTA */}
