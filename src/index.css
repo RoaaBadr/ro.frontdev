@@ -646,14 +646,29 @@ nav {
   gap: 56px 48px; /* more vertical than horizontal */
 
 }
-
+.work-img-real {
+  width: 100%;
+  /* height: 100%; */
+  object-fit: cover;
+}
 .work-card {
+  /* background-color: #0A0A0A; */
   position: relative;
   cursor: pointer;
   overflow: hidden;
   margin-bottom: 12px;
-}
 
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.4s ease forwards;
+
+}
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 .work-img {
   width: 100%;
   aspect-ratio: 4/3;

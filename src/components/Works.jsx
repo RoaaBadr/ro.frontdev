@@ -9,6 +9,13 @@ export default function Works() {
   const navigate = useNavigate();
   const [activeFilter, setActiveFilter] = useState('All Projects');
 
+const filteredProjects = projects.filter((p) => {
+  if (activeFilter === 'All Projects') return true;
+  if (activeFilter === 'Web Apps') return p.type === 'Web Apps';
+  if (activeFilter === 'UI/UX Design') return p.type === 'UI/UX Design';
+  return true;
+});
+
   return (
     <section className="works" id="works">
       <div className="section-header reveal">
@@ -29,49 +36,21 @@ export default function Works() {
       </div>
 
       <div className="works-grid">
-        {(projects || []).map((p) => (
+        {filteredProjects.map((p) => (
           <div
             key={p.title}
-            className={`work-card reveal ${p.delay}`}
+            className={`work-card ${activeFilter}`}
             onClick={() => navigate(`/project/${p.id}`)}
           >
-            {/* The device mockup */}
+            {/* Update device mockup with real images */}
             <div className="work-img" style={{ background: p.bg }}>
-              <div className="work-img-inner" style={{ background: p.innerBg }}>
-                <div
-                  className="work-device"
-                  // style={p.deviceRotate ? { transform: p.deviceRotate } : undefined}
-                >
-                  <div className="work-device-bar">
-                    <div className="work-device-dot" style={{ background: '#ff5f57' }} />
-                    <div className="work-device-dot" style={{ background: '#febc2e' }} />
-                    <div className="work-device-dot" style={{ background: '#28c840' }} />
-                  </div>
 
-                  <div className="work-device-screen" style={{ background: p.screenBg }}>
-                    <div
-                      className="work-device-block"
-                      style={{
-                        gridColumn: '1/-1',
-                        background: p.barColor,
-                        borderRadius: 3,
-                        height: 24,
-                      }}
-                    />
-                    {p.blocks.map((bg, i) => (
-                      <div
-                        key={i}
-                        className="work-device-block"
-                        style={{ background: bg }}
-                      />
-                    ))}
-                  </div>
-                </div>
-              </div>
+              <img src={p.image} alt={p.title} className="work-img-real" />
 
               <div className="work-overlay">
                 <div className="work-view-btn">View Case Study →</div>
               </div>
+
             </div>
 
             <div className="work-info">
@@ -93,6 +72,7 @@ export default function Works() {
           </div>
         ))}
       </div>
+
     </section>
   );
 }

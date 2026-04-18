@@ -3,10 +3,12 @@
     {
       "id": "1",
       "title": "Nova Financial",
-      "subtitle": "Data visualization platform designed for high-net-worth individual management with surgical UI precision.",
+      "subtitle": "A precision-engineered data visualization platform built for high-net-worth individuals who need clarity inside complexity.",
       "desc": "Data visualization platform designed for high-net-worth individual management with surgical UI precision.",
       "tags": ["Next.js", "D3.js"],
       "delay": "",
+      "type": "UI/UX Design",
+      "image": "/assets/screenshots/home.png",
       "bg": "#F5A623",
       "bgColor": "#1a1208",
       "accentColor": "#F5A623",
@@ -21,17 +23,63 @@
       "duration": "6 months",
       "client": "Nova Inc.",
       "overview": [
-        "Nova Financial is a cutting-edge data visualization platform designed to empower high-net-worth individuals with unparalleled insights into their financial portfolios.",
-        "Leveraging Next.js and D3.js, Nova delivers a seamless and visually stunning experience that transforms complex financial data into intuitive, actionable insights."
+        "Nova Financial is a wealth management dashboard engineered for institutional clients who need real-time portfolio analytics without the noise. The core challenge was translating deeply complex financial data into something instantly readable, actionable, and visually authoritative.",
+        "Every interaction was designed with intent — from the animated sparklines that respond to hover, to the drill-down charts that reveal deeper data layers without losing spatial context. The result is a platform that respects both the intelligence of its users and the weight of the decisions they make."
       ],
       "challenges": [
         {
-          "challenge": "Rendering thousands of data points without freezing the UI.",
-          "solution": "Used D3 with canvas rendering for heavy charts, reserving SVG only for interactive overlays."
+          "challenge": "Rendering thousands of live data points simultaneously without degrading UI performance.",
+          "solution": "Adopted a hybrid rendering strategy — D3 canvas for high-density chart areas, SVG reserved exclusively for interactive overlays. This kept frame rates smooth even under heavy data loads."
         },
         {
-          "challenge": "Making dense financial data legible at a glance.",
-          "solution": "Introduced a visual hierarchy system: primary KPIs at full opacity, secondary metrics dimmed, tertiary data on demand."
+          "challenge": "Making dense financial data immediately legible without sacrificing depth.",
+          "solution": "Built a three-tier visual hierarchy: primary KPIs at full opacity, secondary metrics at 50%, tertiary data surfaced on demand. Users could scan the dashboard in under three seconds."
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "title": "Glamorix",
+      "subtitle": "A full-featured beauty e-commerce platform with seamless cart management, secure payments, and a dark/light UI that feels as refined as the products it sells.",
+      "desc": "A modern, responsive beauty and skincare e-commerce store — featuring authentication, cart, wishlist, PayPal checkout, and a dual-theme UI.",
+      "tags": ["React", "Tailwind CSS", "PayPal SDK"],
+      "delay": "reveal-delay-2",
+      "type": "Web Apps",
+      "image": "/screenshots/glamorix/glamorix-home.png",
+      "gallery": [
+        "/screenshots/glamorix/glamorix-home.png",
+        "/screenshots/glamorix/glamorix-products.png",
+        "/screenshots/glamorix/glamorix-checkout.png"
+      ],
+      "bg": "#D4A5C9",
+      "bgColor": "#1a0a14",
+      "accentColor": "#C47EB5",
+      "innerBg": "linear-gradient(145deg,#1a0a14,#2d1225)",
+      "barColor": "#C47EB5",
+      "screenBg": "linear-gradient(180deg,#1c1218,#2a1a24)",
+      "blocks": ["#3a2030", "#2e1828", "#442838", "#382030"],
+      "liveUrl": "https://roaabadr.github.io/Glamorix/",
+      "githubUrl": "https://github.com/RoaaBadr/Glamorix",
+      "year": "2025",
+      "role": "Frontend Developer",
+      "duration": "Team Project",
+      "client": "Academic / Personal",
+      "overview": [
+        "Glamorix is a modern e-commerce platform built for beauty and skincare products — designed to feel as considered and elegant as the brands it showcases. The project covers the full customer journey: product discovery, wishlist curation, cart management, and a smooth PayPal-powered checkout.",
+        "As the frontend lead on a collaborative team, I was responsible for architecting the UI, building the component system, implementing the authentication flow, and integrating the PayPal SDK. The app supports both dark and light themes, with a responsive layout that holds up across every screen size."
+      ],
+      "challenges": [
+        {
+          "challenge": "Keeping cart and wishlist state consistent across pages and user sessions without a backend.",
+          "solution": "Managed all client state through React context combined with localStorage persistence, ensuring continuity across refreshes and navigation without a server dependency."
+        },
+        {
+          "challenge": "Building a believable checkout experience with PayPal integration inside a mock-API environment.",
+          "solution": "Wired the PayPal React SDK to a JSON Server backend, simulating real order creation and confirmation flows — giving the checkout a production-grade feel in a fully local environment."
+        },
+        {
+          "challenge": "Delivering a dual-theme UI that felt intentional rather than just toggled colors.",
+          "solution": "Designed the theme system from the ground up using DaisyUI's theming layer over Tailwind, defining separate token sets for each mode — the light theme felt warm and airy, the dark theme rich and editorial."
         }
       ]
     }

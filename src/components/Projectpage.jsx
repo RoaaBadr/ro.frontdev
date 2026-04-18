@@ -390,57 +390,65 @@ background: #0C0B09;
   font-family: 'Syne', sans-serif;
   font-weight: 800;
   font-size: clamp(26px, 3vw, 38px);
-  letter-spacing: -0.02em;
   margin-bottom: 36px;
   color: var(--black);
 }
+
 .pp-gallery-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 14px;
 }
+
 .pp-gallery-item {
   aspect-ratio: 16/9;
-  background: var(--black);
+  background: #000;
   overflow: hidden;
   position: relative;
+  cursor: pointer;
 }
+
 .pp-gallery-item:first-child {
   grid-column: 1 / -1;
   aspect-ratio: 16/7;
 }
-.pp-gallery-inner {
-  width: 100%; height: 100%;
+
+.pp-gallery-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 🔥 FIX */
+  transition: transform 0.5s ease;
+}
+
+.pp-gallery-item:hover .pp-gallery-img {
+  transform: scale(1.05);
+}
+
+/* ── Lightbox Modal ── */
+.pp-lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.5s ease;
+  z-index: 3000;
+  padding: 40px;
 }
-.pp-gallery-item:hover .pp-gallery-inner { transform: scale(1.03); }
 
-/* mock screen */
-.pp-mock-screen {
-  width: 75%;
-  max-width: 480px;
-  background: #1c1c1e;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+.pp-lightbox img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
-.pp-mock-bar {
-  background: #2c2c2e;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  padding: 0 14px;
-  gap: 7px;
-}
-.pp-mock-dot { width: 9px; height: 9px; border-radius: 50%; }
-.pp-mock-body { padding: 14px; display: grid; gap: 10px; }
-.pp-mock-row {
-  height: 12px;
-  border-radius: 3px;
-  background: rgba(255,255,255,0.1);
+
+.pp-lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 28px;
+  color: white;
+  cursor: pointer;
 }
 
 /* ── CTA strip ── */
@@ -559,30 +567,6 @@ function MiniSplash({ onDone }) {
   );
 }
 
-/* ─────────────────────────────────────────────
-   MOCK SCREEN (gallery placeholder)
-───────────────────────────────────────────── */
-function MockScreen({ accent, rows = 5 }) {
-  return (
-    <div className="pp-mock-screen">
-      <div className="pp-mock-bar">
-        <div className="pp-mock-dot" style={{ background: '#ff5f57' }} />
-        <div className="pp-mock-dot" style={{ background: '#febc2e' }} />
-        <div className="pp-mock-dot" style={{ background: '#28c840' }} />
-      </div>
-      <div className="pp-mock-body">
-        <div className="pp-mock-row" style={{ background: accent, opacity: 0.7, height: '18px' }} />
-        {Array.from({ length: rows }).map((_, i) => (
-          <div
-            key={i}
-            className="pp-mock-row"
-            style={{ width: `${70 + Math.sin(i * 1.5) * 25}%`, opacity: 0.06 + i * 0.03 }}
-          />
-        ))}
-      </div>
-    </div>
-  );
-}
 
 /* ─────────────────────────────────────────────
    PROJECT PAGE
@@ -590,7 +574,9 @@ function MockScreen({ accent, rows = 5 }) {
 export default function ProjectPage() {
   const { id } = useParams();
   const navigate = useNavigate();
+
   const [splashDone, setSplashDone] = useState(false);
+  const [activeImg, setActiveImg] = useState(null); 
 
   // Scroll to top whenever we land here
   useEffect(() => { window.scrollTo(0, 0); }, [id]);
@@ -736,23 +722,33 @@ export default function ProjectPage() {
           </aside>
         </div>
 
-        {/* ── GALLERY ── */}
         <div className="pp-gallery">
           <h2 className="pp-gallery-title">Screenshots</h2>
+
           <div className="pp-gallery-grid">
-            {[
-              { bg: `linear-gradient(145deg,${p.bgColor || '#1a1208'},#0a0a0a)`, rows: 6 },
-              { bg: 'linear-gradient(145deg,#0d1117,#161b22)', rows: 4 },
-              { bg: `linear-gradient(145deg,#1a1208,#2a1e08)`, rows: 5 },
-            ].map((item, i) => (
-              <div key={i} className="pp-gallery-item">
-                <div className="pp-gallery-inner" style={{ background: item.bg }}>
-                  <MockScreen accent={p.accentColor || '#F5A623'} rows={item.rows} />
-                </div>
+            {(p.gallery || []).map((img, i) => (
+              <div
+                key={i}
+                className="pp-gallery-item"
+                onClick={() => setActiveImg(img)} 
+              >
+                <img
+                  src={img}
+                  alt={`screenshot-${i}`}
+                  className="pp-gallery-img"
+                />
               </div>
             ))}
           </div>
         </div>
+
+        {/* ── LIGHTBOX ── */}
+        {activeImg && (
+          <div className="pp-lightbox" onClick={() => setActiveImg(null)}>
+            <span className="pp-lightbox-close">×</span>
+            <img src={activeImg} alt="preview" />
+          </div>
+        )}
 
         {/* ── CTA ── */}
         <section className="pp-cta">
