@@ -1,0 +1,39 @@
+{
+  "projects": [
+    {
+      "id": "1",
+      "title": "Nova Financial",
+      "subtitle": "Data visualization platform designed for high-net-worth individual management with surgical UI precision.",
+      "desc": "Data visualization platform designed for high-net-worth individual management with surgical UI precision.",
+      "tags": ["Next.js", "D3.js"],
+      "delay": "",
+      "bg": "#F5A623",
+      "bgColor": "#1a1208",
+      "accentColor": "#F5A623",
+      "innerBg": "linear-gradient(145deg,#1a1208,#3a2a0a)",
+      "barColor": "#F5A623",
+      "screenBg": "linear-gradient(180deg,#1c1c1e,#2c2c2e)",
+      "blocks": ["#333", "#2a2a2a", "#444", "#383838"],
+      "liveUrl": "https://nova-financial.com",
+      "githubUrl": "#",
+      "year": "2024",
+      "role": "Lead Developer",
+      "duration": "6 months",
+      "client": "Nova Inc.",
+      "overview": [
+        "Nova Financial is a cutting-edge data visualization platform designed to empower high-net-worth individuals with unparalleled insights into their financial portfolios.",
+        "Leveraging Next.js and D3.js, Nova delivers a seamless and visually stunning experience that transforms complex financial data into intuitive, actionable insights."
+      ],
+      "challenges": [
+        {
+          "challenge": "Rendering thousands of data points without freezing the UI.",
+          "solution": "Used D3 with canvas rendering for heavy charts, reserving SVG only for interactive overlays."
+        },
+        {
+          "challenge": "Making dense financial data legible at a glance.",
+          "solution": "Introduced a visual hierarchy system: primary KPIs at full opacity, secondary metrics dimmed, tertiary data on demand."
+        }
+      ]
+    }
+  ]
+}
