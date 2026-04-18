@@ -2,38 +2,56 @@
   "projects": [
     {
       "id": "1",
-      "title": "Nova Financial",
-      "subtitle": "A precision-engineered data visualization platform built for high-net-worth individuals who need clarity inside complexity.",
-      "desc": "Data visualization platform designed for high-net-worth individual management with surgical UI precision.",
-      "tags": ["Next.js", "D3.js"],
+      "title": "ShipConnect",
+      "subtitle": "A logistics SaaS platform connecting startups with global shipping networks — I led the frontend for the startup-facing dashboard, authentication system, and the full onboarding flow.",
+      "desc": "Logistics SaaS platform built with a cross-functional team — I owned the startup dashboard, login & registration, and the complete authentication user flow.",
+      "tags": [
+        "React",
+        "REST API",
+        "Figma"
+      ],
+      "type": "Web Apps",
       "delay": "",
-      "type": "UI/UX Design",
-      "image": "/assets/screenshots/home.png",
-      "bg": "#F5A623",
-      "bgColor": "#1a1208",
-      "accentColor": "#F5A623",
-      "innerBg": "linear-gradient(145deg,#1a1208,#3a2a0a)",
-      "barColor": "#F5A623",
-      "screenBg": "linear-gradient(180deg,#1c1c1e,#2c2c2e)",
-      "blocks": ["#333", "#2a2a2a", "#444", "#383838"],
-      "liveUrl": "https://nova-financial.com",
-      "githubUrl": "#",
-      "year": "2024",
-      "role": "Lead Developer",
-      "duration": "6 months",
-      "client": "Nova Inc.",
+      "image": "/screenshots/ship-connect/start-dash.png",
+      "gallery": [
+        "/screenshots/ship-connect/start-dash.png",
+        "/screenshots/ship-connect/log-in.png",
+        "/screenshots/ship-connect/start-offers.png"
+      ],
+      "bg": "#1E6FA8",
+      "bgColor": "#030d18",
+      "accentColor": "#2E8FD4",
+      "innerBg": "linear-gradient(145deg,#030d18,#081828)",
+      "barColor": "#2E8FD4",
+      "screenBg": "linear-gradient(180deg,#071220,#0c1c30)",
+      "blocks": [
+        "#0e2438",
+        "#091a2c",
+        "#122c44",
+        "#0f2038"
+      ],
+      "liveUrl": "https://github.com/ZeinabMahmoud7/ShipConnect-G-Proj",
+      "githubUrl": "https://github.com/ZeinabMahmoud7/ShipConnect-G-Proj",
+      "year": "2025",
+      "role": "Frontend Developer",
+      "duration": "Team Project",
+      "client": "Academic / Graduation Project",
       "overview": [
-        "Nova Financial is a wealth management dashboard engineered for institutional clients who need real-time portfolio analytics without the noise. The core challenge was translating deeply complex financial data into something instantly readable, actionable, and visually authoritative.",
-        "Every interaction was designed with intent — from the animated sparklines that respond to hover, to the drill-down charts that reveal deeper data layers without losing spatial context. The result is a platform that respects both the intelligence of its users and the weight of the decisions they make."
+        "ShipConnect is a logistics SaaS platform built to bridge the gap between early-stage startups and the global shipping infrastructure they need to scale. The platform allows startup founders to register, manage shipments, track logistics operations, and integrate with carrier networks — all from a single, purpose-built dashboard.",
+        "This was a graduation-level group project built in close collaboration between a frontend pair and a backend team. My ownership was clear and scoped: I designed and built the startup-facing dashboard, the complete authentication system (login, registration, and the full connected flow), and every UI state and screen that lives between them. The design was grounded in a Figma prototype, and I translated it into a live, API-connected React application working directly with the backend team's endpoints."
       ],
       "challenges": [
         {
-          "challenge": "Rendering thousands of live data points simultaneously without degrading UI performance.",
-          "solution": "Adopted a hybrid rendering strategy — D3 canvas for high-density chart areas, SVG reserved exclusively for interactive overlays. This kept frame rates smooth even under heavy data loads."
+          "challenge": "Building an authentication flow that felt seamless across login, registration, and protected routes — coordinated with a live backend.",
+          "solution": "Implemented JWT-based authentication with token storage and automatic refresh logic, protecting routes client-side with React Router guards while keeping the UX frictionless. Every edge case — invalid credentials, session expiry, network errors — had a deliberate UI response."
         },
         {
-          "challenge": "Making dense financial data immediately legible without sacrificing depth.",
-          "solution": "Built a three-tier visual hierarchy: primary KPIs at full opacity, secondary metrics at 50%, tertiary data surfaced on demand. Users could scan the dashboard in under three seconds."
+          "challenge": "Designing a startup dashboard that surfaced the most critical logistics data without overwhelming new users.",
+          "solution": "Worked from the Figma prototype to prioritize a progressive disclosure approach: key shipment metrics and status cards up front, detailed breakdowns expandable on demand. The dashboard was built to feel manageable on day one and powerful as the startup scaled."
+        },
+        {
+          "challenge": "Coordinating frontend work with a backend team building APIs in parallel, without a finalized contract.",
+          "solution": "Agreed on a shared API contract early, then built against mock data while the backend was in development. Once endpoints were live, integration was a clean swap — no rewrites, no UI rework needed."
         }
       ]
     },
@@ -43,8 +61,8 @@
       "subtitle": "A full-featured beauty e-commerce platform with seamless cart management, secure payments, and a dark/light UI that feels as refined as the products it sells.",
       "desc": "A modern, responsive beauty and skincare e-commerce store — featuring authentication, cart, wishlist, PayPal checkout, and a dual-theme UI.",
       "tags": ["React", "Tailwind CSS", "PayPal SDK"],
-      "delay": "reveal-delay-2",
       "type": "Web Apps",
+      "delay": "reveal-delay-2",
       "image": "/screenshots/glamorix/glamorix-home.png",
       "gallery": [
         "/screenshots/glamorix/glamorix-home.png",
@@ -80,6 +98,144 @@
         {
           "challenge": "Delivering a dual-theme UI that felt intentional rather than just toggled colors.",
           "solution": "Designed the theme system from the ground up using DaisyUI's theming layer over Tailwind, defining separate token sets for each mode — the light theme felt warm and airy, the dark theme rich and editorial."
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "title": "Design Trends",
+      "subtitle": "A full UI/UX case study for a personalized shopping platform — from user research and information architecture to high-fidelity Figma screens and a complete design system.",
+      "desc": "UI/UX case study for a personalized e-commerce platform — covering user flows, wireframes, and high-fidelity Figma screens with a full design system.",
+      "tags": ["Figma", "UI/UX", "Case Study"],
+      "type": "UI/UX Design",
+      "delay": "",
+      "image": "/screenshots/design-trends/main.png",
+      "gallery": [
+        "/screenshots/design-trends/home.png",
+        "/screenshots/design-trends/product-page.png",
+        "/screenshots/design-trends/all-products.png"
+      ],
+      "bg": "#6C8EBF",
+      "bgColor": "#080e1a",
+      "accentColor": "#6C8EBF",
+      "innerBg": "linear-gradient(145deg,#080e1a,#101828)",
+      "barColor": "#6C8EBF",
+      "screenBg": "linear-gradient(180deg,#0d1623,#162030)",
+      "blocks": ["#1a2535", "#121d2e", "#223040", "#1c2838"],
+      "liveUrl": "https://www.behance.net/gallery/227500397/UIUX-Case-Study-for-a-Personalized-Shopping-Platform",
+      "githubUrl": "",
+      "year": "2025",
+      "role": "UI/UX Designer",
+      "duration": "Personal Project",
+      "client": "Self-Initiated",
+      "overview": [
+        "Design Trends is a concept e-commerce platform designed around one central idea: shopping should feel personal, not algorithmic. The project began with a deep dive into how users actually navigate online stores — where they drop off, what earns their trust, and what pushes them to convert.",
+        "The result is a comprehensive design system and set of high-fidelity Figma screens that prioritize personalization at every touchpoint — from a smart onboarding flow that captures taste preferences, to a product page designed to reduce decision fatigue. Every component was built with reusability in mind: color tokens, documented interaction states, and an auto-layout grid that scales from mobile to desktop."
+      ],
+      "challenges": [
+        {
+          "challenge": "Designing a personalization experience that felt helpful rather than intrusive or surveillance-like.",
+          "solution": "Introduced progressive disclosure — users set broad preferences during onboarding, and the platform refines recommendations silently based on browsing behavior. No consent fatigue, no pop-up overload."
+        },
+        {
+          "challenge": "Making a complex product filtering system feel effortless across screen sizes.",
+          "solution": "Designed a persistent side-panel filter for desktop and a bottom-sheet drawer for mobile, using the same interaction logic but adapted to each context's natural gestures and thumb zones."
+        },
+        {
+          "challenge": "Building a design system flexible enough to span diverse product categories.",
+          "solution": "Created a token-based color system with category-level accent overrides, so each section had its own visual mood — skincare soft, fashion bold, accessories minimal — while remaining part of one coherent brand."
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "title": "OSMAUS",
+      "subtitle": "A web design concept that reimagines project management as a calm, structured workspace — less noise, more focus, built for the way teams actually think.",
+      "desc": "Web design concept for a modern project management platform — clean architecture, purposeful hierarchy, and a UI built around individual focus rather than managerial oversight.",
+      "tags": ["Web Design", "UI Design", "Figma"],
+      "type": "UI/UX Design",
+      "delay": "reveal-delay-2",
+      "image": "/screenshots/osmaus/main.png",
+      "gallery": [
+        "/screenshots/osmaus/projects.png",
+        "/screenshots/osmaus/contact.png",
+        "/screenshots/osmaus/feature-1.png"
+      ],
+      "bg": "#3D5A80",
+      "bgColor": "#060c14",
+      "accentColor": "#5B8DB8",
+      "innerBg": "linear-gradient(145deg,#060c14,#0e1c2e)",
+      "barColor": "#5B8DB8",
+      "screenBg": "linear-gradient(180deg,#0a1520,#122030)",
+      "blocks": ["#162840", "#0e1e32", "#1c3048", "#142438"],
+      "liveUrl": "https://www.behance.net/gallery/224904973/OSMAUS-Redefining-Project-Management",
+      "githubUrl": "",
+      "year": "2025",
+      "role": "UI/UX Designer",
+      "duration": "Personal Project",
+      "client": "Self-Initiated",
+      "overview": [
+        "OSMAUS is a product design concept that challenges how project management tools are typically built — most tools are designed for managers who need oversight, not for the people doing the actual work. OSMAUS flips that perspective: it's designed around the individual contributor's day, surfacing only what's relevant right now and keeping everything else one deliberate click away.",
+        "The visual language is intentionally architectural — strong grid, minimal chrome, generous whitespace. The UI communicates structure and clarity without feeling sterile or corporate. Every screen was designed to reduce cognitive overhead and protect focus: less context-switching, less searching, more doing."
+      ],
+      "challenges": [
+        {
+          "challenge": "Designing a dashboard that surfaces enough context to be useful without becoming overwhelming.",
+          "solution": "Used a dynamic content zone system — the center panel adapts based on the user's active task, collapsing secondary panels automatically. Information density scales with intent, not with data availability."
+        },
+        {
+          "challenge": "Making task hierarchy and priority visible without relying on color-coded labels or nested indentation.",
+          "solution": "Introduced a visual weight system where deadline proximity, priority level, and ownership are communicated through typography scale and opacity — giving the interface a natural reading order without visual noise."
+        },
+        {
+          "challenge": "Creating a design that felt calm and focused even under heavy project loads.",
+          "solution": "Designed a progressive reveal pattern — only active sprint tasks surface in the main view by default. Backlog, archive, and dependencies live in contextual side panels opened on demand, keeping the workspace uncluttered."
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "title": "Brews & Co.",
+      "subtitle": "A warm, editorial coffee shop website design that blends artisanal identity with digital atmosphere — crafted in Photoshop, rooted in texture and intention.",
+      "desc": "Coffee shop branding and website design concept — a warm, tactile visual identity paired with an editorial digital presence built entirely in Photoshop.",
+      "tags": ["Photoshop", "UI Design", "Branding"],
+      "type": "UI/UX Design",
+      "delay": "",
+      "image": "/screenshots/coffee/coffee-main.png",
+      "gallery": [
+        "/screenshots/coffee/coffee-home.png",
+        "/screenshots/coffee/feature-1.png",
+        "/screenshots/coffee/coffee-footer.png"
+      ],
+      "bg": "#8B5E3C",
+      "bgColor": "#120b05",
+      "accentColor": "#C8864A",
+      "innerBg": "linear-gradient(145deg,#120b05,#241408)",
+      "barColor": "#C8864A",
+      "screenBg": "linear-gradient(180deg,#1a1008,#281808)",
+      "blocks": ["#3a2010", "#2e1808", "#442818", "#382010"],
+      "liveUrl": "https://www.behance.net/gallery/224904155/Coffee-Shop",
+      "githubUrl": "",
+      "year": "2025",
+      "role": "Visual Designer",
+      "duration": "Personal Project",
+      "client": "Self-Initiated",
+      "overview": [
+        "Brews & Co. is a visual identity and website design concept for an artisanal coffee shop — the kind of place that takes its craft seriously, where the interior feels curated and the menu tells a story. The design goal was direct: make someone want a coffee the moment they land on the page.",
+        "Built entirely in Photoshop, the project explores how texture, warmth, and editorial typography can communicate quality and care without a single word of marketing copy. The color palette was pulled directly from roasted bean tones — deep espresso browns, warm caramel, and soft cream — then paired with serif type that feels both timeless and contemporary."
+      ],
+      "challenges": [
+        {
+          "challenge": "Creating atmosphere and warmth through a static, screen-based medium.",
+          "solution": "Layered paper textures, soft grain overlays, and warm-toned photo composites to give the design a tactile, almost physical quality — the kind of feeling you'd associate with holding a warm cup in a quiet room."
+        },
+        {
+          "challenge": "Balancing editorial ambition with practical website needs — menu, ordering, and location.",
+          "solution": "Separated the experience into two distinct visual modes: an immersive hero and story section for atmosphere and brand discovery, and a clean high-contrast utility layer for ordering and navigation, so neither mode compromises the other."
+        },
+        {
+          "challenge": "Establishing a brand identity that stood apart from the generic rustic-vintage café aesthetic.",
+          "solution": "Drew inspiration from luxury food editorial rather than artisan nostalgia — treating the coffee itself as the hero through deliberate composition, generous negative space, and a palette that felt premium without being cold."
         }
       ]
     }
