@@ -1,3 +1,4 @@
+import { GoArrowUpRight } from "react-icons/go";
 export default function Hero({ visible }) {
   return (
     <section className="hero">
@@ -21,8 +22,9 @@ export default function Hero({ visible }) {
         </p>
 
         <div className={`hero-btns${visible ? ' visible' : ''}`}>
-          <a href="#works" className="btn-primary">View My Work →</a>
-          <a href="#" className="btn-outline">Download CV</a>
+          <a href="#works" className="btn-primary">View My Work</a>
+          <a href="/Roaa_Mohamed_CV_2025.pdf" rel="noreferrer" target="_blank" className="btn-outline">Resume <GoArrowUpRight/></a>
+          {/* <a href="/Roaa_Mohamed_CV_2025.pdf" download className="btn-outline">Download CV</a> */}
         </div>
 
       </div>
