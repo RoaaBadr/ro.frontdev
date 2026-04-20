@@ -423,7 +423,7 @@ export default function Nav() {
           {/* RIGHT */}
           <div className="nav-right">
             {/* Behance */}
-            <a href="https://behance.com/roaa-badr" className="nav-icon-btn" title="Behance" aria-label="Behance">
+            <a href="https://www.behance.net/roaabader" className="nav-icon-btn" title="Behance" aria-label="Behance">
               <RiBehanceFill size={20} className=""/>
             </a>
             {/* GitHub */}
