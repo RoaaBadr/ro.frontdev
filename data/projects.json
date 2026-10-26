@@ -126,9 +126,9 @@
       "delay": "",
       "image": "/screenshots/nafsi/TODO.png",
       "gallery": [
-        "/screenshots/nafsi/TODO-1.png",
-        "/screenshots/nafsi/TODO-2.png",
-        "/screenshots/nafsi/TODO-3.png"
+        "/screenshots/nafsi/heroSection.png",
+        "/screenshots/nafsi/login.png",
+        "/screenshots/nafsi/quiz.png"
       ],
       "bg": "#2A7F6F",
       "bgColor": "#06130f",
