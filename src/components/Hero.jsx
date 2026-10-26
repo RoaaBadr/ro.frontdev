@@ -23,7 +23,7 @@ export default function Hero({ visible }) {
 
         <div className={`hero-btns${visible ? ' visible' : ''}`}>
           <a href="#works" className="btn-primary">View My Work</a>
-          <a href="/Roaa_Mohamed_CV_2025.pdf" rel="noreferrer" target="_blank" className="btn-outline">Resume <GoArrowUpRight/></a>
+          <a href="https://drive.google.com/file/d/15Ex_gkyuZuzxjTmjfJmI5EHDoB4WDmK6/view?usp=sharing" rel="noreferrer" target="_blank" className="btn-outline">Resume <GoArrowUpRight/></a>
           {/* <a href="/Roaa_Mohamed_CV_2025.pdf" download className="btn-outline">Download CV</a> */}
         </div>
 
