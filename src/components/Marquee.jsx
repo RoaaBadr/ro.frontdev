@@ -5,7 +5,7 @@ const items = [
   'React',
   'UI Design',
   'Next.js',
-  'Motion Design',
+  'JavaScript',
 ];
 
 export default function Marquee() {
