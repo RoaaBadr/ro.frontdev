@@ -20,7 +20,7 @@ export default function Splash({ hiding }) {
     <div id="splash" className={hiding ? 'hide' : ''}>
       <div className="splash-grid" />
       <div className="splash-text-wrap">
-        <div className="splash-hello">Portfolio — 2025</div>
+        <div className="splash-hello">Portfolio — 2026</div>
         <div className="splash-name">
           ROA<span>A</span>
         </div>

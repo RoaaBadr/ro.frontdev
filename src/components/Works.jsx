@@ -1,20 +1,11 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import projectData from '../../data/projects.json';
 
 const projects = projectData.projects;
-const filters = ['All Projects', 'Web Apps', 'UI/UX Design'];
+const webAppProjects = projects.filter((project) => project.type === 'Web Apps');
 
 export default function Works() {
   const navigate = useNavigate();
-  const [activeFilter, setActiveFilter] = useState('All Projects');
-
-const filteredProjects = projects.filter((p) => {
-  if (activeFilter === 'All Projects') return true;
-  if (activeFilter === 'Web Apps') return p.type === 'Web Apps';
-  if (activeFilter === 'UI/UX Design') return p.type === 'UI/UX Design';
-  return true;
-});
 
   return (
     <section className="works" id="works">
@@ -23,23 +14,11 @@ const filteredProjects = projects.filter((p) => {
         {/* <span className="section-sub">2023 — 2025</span> */}
       </div>
 
-      <div className="works-filter reveal">
-        {filters.map((f) => (
-          <button
-            key={f}
-            className={`filter-btn${activeFilter === f ? ' active' : ''}`}
-            onClick={() => setActiveFilter(f)}
-          >
-            {f}
-          </button>
-        ))}
-      </div>
-
       <div className="works-grid">
-        {filteredProjects.map((p) => (
+        {webAppProjects.map((p) => (
           <div
             key={p.title}
-            className={`work-card ${activeFilter}`}
+            className="work-card"
             onClick={() => navigate(`/project/${p.id}`)}
           >
             {/* Update device mockup with real images */}
