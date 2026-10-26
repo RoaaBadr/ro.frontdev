@@ -576,7 +576,7 @@ export default function ProjectPage() {
   const navigate = useNavigate();
 
   const [splashDone, setSplashDone] = useState(false);
-  const [activeImg, setActiveImg] = useState(null); 
+  const [activeImg, setActiveImg] = useState(null);
 
   // Scroll to top whenever we land here
   useEffect(() => { window.scrollTo(0, 0); }, [id]);
@@ -636,9 +636,17 @@ export default function ProjectPage() {
                 <div className="pp-hero-stat-label">Duration</div>
                 <div className="pp-hero-stat-val">{p.duration}</div>
               </div>
-              <a href={p.liveUrl} className="pp-live-btn" target="_blank" rel="noreferrer">
-                Live Site →
-              </a>
+              {/*Show live site link if available */}
+              {p.liveUrl && (
+                <a
+                  href={p.liveUrl}
+                  className="pp-live-btn"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Live Site →
+                </a>
+              )}
             </div>
           </div>
         </section>
@@ -704,21 +712,43 @@ export default function ProjectPage() {
               </div>
             </div>
 
-            <div className="pp-info-card">
-              <div className="pp-info-card-title">Links</div>
-              <div className="pp-info-row">
-                <span className="pp-info-key">Live Site</span>
-                <a href={p.liveUrl} className="pp-info-val"
-                  style={{ color: p.accentColor || 'var(--amber)', textDecoration: 'none' }}
-                  target="_blank" rel="noreferrer">View →</a>
+            {/*If there's no demo nor repo, then don't show the links section */}
+            {(p.liveUrl || p.githubUrl) && (
+              <div className="pp-info-card">
+                <div className="pp-info-card-title">Links</div>
+
+                {p.liveUrl && (
+                  <div className="pp-info-row">
+                    <span className="pp-info-key">Live Site</span>
+                    <a
+                      href={p.liveUrl}
+                      className="pp-info-val"
+                      style={{ color: p.accentColor || 'var(--amber)', textDecoration: 'none' }}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      View →
+                    </a>
+                  </div>
+                )}
+
+                {p.githubUrl && (
+                  <div className="pp-info-row">
+                    <span className="pp-info-key">GitHub</span>
+                    <a
+                      href={p.githubUrl}
+                      className="pp-info-val"
+                      style={{ color: 'var(--black)', textDecoration: 'none' }}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Repo →
+                    </a>
+                  </div>
+                )}
               </div>
-              <div className="pp-info-row">
-                <span className="pp-info-key">GitHub</span>
-                <a href={p.githubUrl} className="pp-info-val"
-                  style={{ color: 'var(--black)', textDecoration: 'none' }}
-                  target="_blank" rel="noreferrer">Repo →</a>
-              </div>
-            </div>
+            )}
+
           </aside>
         </div>
 
@@ -730,7 +760,7 @@ export default function ProjectPage() {
               <div
                 key={i}
                 className="pp-gallery-item"
-                onClick={() => setActiveImg(img)} 
+                onClick={() => setActiveImg(img)}
               >
                 <img
                   src={img}
